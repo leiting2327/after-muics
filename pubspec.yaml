@@ -1,5 +1,5 @@
-name: beans_music_glass
-description: Beans Music Glass - Liquid Glass Music Player (Apple Music style)
+name: after_music
+description: After Music - Liquid Glass Music Player (Apple Music style, multi-source)
 publish_to: 'none'
 version: 1.0.0+1
 

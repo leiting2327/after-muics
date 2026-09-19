@@ -23,7 +23,7 @@ class BeansMusicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Beans Music Glass',
+      title: 'After Music',
       debugShowCheckedModeBanner: false,
       theme: GlassTheme.darkTheme,
       home: const MainShell(),

@@ -19,6 +19,9 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
 
+      - name: Generate platform files
+        run: flutter create . --org com.aftermusic --project-name after_music
+
       - name: Install dependencies
         run: flutter pub get
 
