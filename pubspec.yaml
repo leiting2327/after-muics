@@ -34,9 +34,6 @@ dependencies:
   # 设备信息
   device_info_plus: ^9.1.2
   package_info_plus: ^5.0.1
-  # Web 解码二维码（登录页展示）
-  qr_code_scanner: ^1.0.1
-  flutter_qr_bar_scanner: ^3.0.2
 
 dev_dependencies:
   flutter_test:
