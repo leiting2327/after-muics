@@ -1,4 +1,4 @@
-name: Build iOS IPA
+name: Build iOS Unsigned IPA
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.27.0'
           channel: 'stable'
 
       - name: Generate platform files
@@ -25,41 +25,18 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Import Apple Certificates
-        env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
+      - name: Build unsigned iOS app
+        run: flutter build ios --release --no-codesign
 
-      - name: Import Provisioning Profile
-        env:
-          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+      - name: Pack .app into zip
         run: |
-          PROVISION_PATH=$RUNNER_TEMP/profile.mobileprovision
-          echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o $PROVISION_PATH
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PROVISION_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
+          cd build/ios/iphoneos
+          mkdir -p Payload
+          cp -r after_music.app Payload/
+          zip -r ../../AfterMusic-unsigned.zip Payload/
 
-      - name: Build IPA
-        env:
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          EXPORT_OPTIONS_PLIST: ${{ secrets.EXPORT_OPTIONS_PLIST }}
-        run: |
-          flutter build ipa --release \
-            --export-options-plist=/dev/stdin <<< "$EXPORT_OPTIONS_PLIST" \
-            || flutter build ipa --release
-
-      - name: Upload IPA
+      - name: Upload unsigned IPA
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-ipa
-          path: build/ios/ipa/*.ipa
+          name: after-music-ios-unsigned
+          path: build/ios/AfterMusic-unsigned.zip
