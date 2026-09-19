@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: after-music-ios-unsigned
-          path: build/ios/AfterMusic-unsigned.zip
+          path: build/AfterMusic-unsigned.zip
