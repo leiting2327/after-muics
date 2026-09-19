@@ -1,0 +1,51 @@
+name: beans_music_glass
+description: Beans Music Glass - Liquid Glass Music Player (Apple Music style)
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.22.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  # 网络
+  dio: ^5.4.0
+  cookie_jar: ^4.0.8
+  dio_cookie_manager: ^3.1.1
+  # 加密
+  crypto: ^3.0.3
+  encrypt: ^5.0.3
+  pointycastle: ^3.9.1
+  # 音频播放
+  just_audio: ^0.9.38
+  audio_service: ^0.18.15
+  # 状态管理
+  provider: ^6.1.2
+  # 存储
+  shared_preferences: ^2.2.2
+  # 工具
+  url_launcher: ^6.2.5
+  cached_network_image: ^3.3.1
+  palette_generator: ^0.3.3+2
+  google_fonts: ^6.2.1
+  # 设备信息
+  device_info_plus: ^9.1.2
+  package_info_plus: ^5.0.1
+  # Web 解码二维码（登录页展示）
+  qr_code_scanner: ^1.0.1
+  flutter_qr_bar_scanner: ^3.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  # 构建
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
