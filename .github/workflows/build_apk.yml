@@ -28,6 +28,11 @@ jobs:
       - name: Generate platform files
         run: flutter create . --org com.aftermusic --project-name after_music
 
+      - name: Fix Kotlin version
+        run: |
+          sed -i "s/ext.kotlin_version = .*/ext.kotlin_version = '1.9.24'/" android/build.gradle
+          grep kotlin_version android/build.gradle || true
+
       - name: Install dependencies
         run: flutter pub get
 
