@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../models/song.dart';
-import '../utils/crypto.dart';
+import '../../models/song.dart';
+import '../../utils/crypto.dart';
 
 /// 网易云音乐 API
 class NeteaseApi {
