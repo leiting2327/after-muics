@@ -31,8 +31,9 @@ jobs:
       - name: Pack .app into zip
         run: |
           cd build/ios/iphoneos
+          ls -la
           mkdir -p Payload
-          cp -r after_music.app Payload/
+          cp -r Runner.app Payload/
           zip -r ../../AfterMusic-unsigned.zip Payload/
 
       - name: Upload unsigned IPA
